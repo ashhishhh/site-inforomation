@@ -1,0 +1,20 @@
+<?php
+use Drupal\Core\Form\FormStateInterface;
+
+function site_info_form_alter(&$form, FormStateInterface &$form_state, $form_id){
+	if ($form_id == 'system_site_information_settings'){
+
+		$form['site_information']['site_api_key'] = array(
+		    '#type' => 'textfield',
+		    '#title' => t('Site API KEY'),
+		    '#default_value' => \Drupal::state()->get('siteapikey', 'No API Key yet'),
+		  );
+		$form['#submit'][] = 'site_info_submit_handler';
+		$form['actions']['submit']['#value']= t('Update Configuration');
+	}
+}
+
+function site_info_submit_handler ($form, &$form_state) {
+	\Drupal::state()->set('siteapikey', $form_state->getValue('site_api_key'));
+	drupal_set_message('Site API Key has been saved with that value');
+}

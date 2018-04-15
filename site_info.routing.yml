@@ -1,0 +1,7 @@
+site_info.show_page_node:
+  path: '/page_json/FOOBAR12345/{page_arg}'
+  defaults:
+    _controller: 'Drupal\site_info\Controller\JsonPage::getPageData'
+    _title: 'Page Data'
+  requirements:
+    _permission: 'access content'
